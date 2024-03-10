@@ -1,0 +1,3 @@
+{
+  "message": "[{\"type\":\"field\",\"value\":\"\",\"msg\":\"Invalid value\",\"path\":\"phoneNumber\",\"location\":\"body\"},{\"type\":\"field\",\"value\":\"\",\"msg\":\"Invalid value\",\"path\":\"priority\",\"location\":\"body\"}]"
+}
