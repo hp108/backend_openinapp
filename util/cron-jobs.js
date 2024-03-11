@@ -2,9 +2,15 @@ import cron from 'node-cron'
 import { Task } from '../model/task-model.js';
 import { User } from '../model/user-model.js';
 import twilio from 'twilio';
-const client = twilio("AC431348ae89ae76af6454fe6a9bdfd383","4368da5e0928b0baadea46fc09f6ea53");
+import 'dotenv/config'
 
-const priorityJob = cron.schedule('* * * * *', async () => {
+
+const TWILIO_ACCOUNT_SID = process.env.TWILIO_SID;
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_TOKEN;
+
+const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+
+const priorityJob = cron.schedule('* */6 * * *', async () => {
   const tasks = await Task.find({ status: { $ne: 'DONE' }, deleted_at: null });
   const currentDate = new Date();
   tasks.forEach(async (task) => {
@@ -19,8 +25,7 @@ const priorityJob = cron.schedule('* * * * *', async () => {
   });
 });
 
-const callJob=cron.schedule('* * * * *', async () => {
-    console.log('running')
+const callJob=cron.schedule('*/5 * * * *', async () => {
     try{
   const tasks = await Task.find({ status: { $ne: 'DONE' }, deleted_at: null }).sort({ priority: 1 });
   for (let task of tasks) {
@@ -28,24 +33,22 @@ const callJob=cron.schedule('* * * * *', async () => {
     const currentDate = new Date();
     if (currentDate > dueDate) {
       const user = await User.findById(task.user_id);
+      let call;
       if (user) {
-        const call = await client.calls.create({
-          url: 'https://handler.twilio.com/twiml/EHe6d0386b69daceca7c1bda47c7de8a76', // Replace with your TwiML URL
-          to: user.phone_number,
-          from: +16309483489
-        });
-        if (call.status !== 'failed') 
-        {
-            console.log('faileddd')
-            break;
-        }
+         call = await client.calls.create({
+          url: 'http://demo.twilio.com/docs/voice.xml',
+          to: "+919550336871",
+          from: '+16309483489'
+        }).then((call)=>{
+          return call
+      });
       }
     }
   }
 }
 catch(err)
 {
-    console.log('error')
+    console.log('error',err)
     return new Error("Something wenr wrong with twilio")
 }
 });

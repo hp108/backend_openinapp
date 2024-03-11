@@ -5,6 +5,7 @@ import { userRoute } from './routes/users-route.js';
 import { taskRoute } from './routes/task-route.js';
 import { subTaskRoute } from './routes/subtask-route.js';
 import { startTwilioCronJobs } from './util/cron-jobs.js';
+import 'dotenv/config'
 
 
 const app = express()
@@ -17,10 +18,6 @@ app.use('/',userRoute)
 app.use('/task',taskRoute)
 
 app.use('/subtask',subTaskRoute)
-
-// app.use('/task',taskRoute)
-
-// app.use('/subtask',SubTaskRoute)
 
 startTwilioCronJobs();
 
@@ -35,9 +32,9 @@ app.use((error,req,res,next)=>{
 })
 
 
-mongoose.connect('mongodb+srv://hari:hari@cluster0.suaqdxj.mongodb.net/openinn?retryWrites=true&w=majority&appName=Cluster0').then(()=>{
+mongoose.connect(process.env.DB_URL).then(()=>{
 
-app.listen(3000 || 4000,()=>{
+app.listen(3000,()=>{
     console.log('running in port number 3000')
 });
 }).catch((err)=>{

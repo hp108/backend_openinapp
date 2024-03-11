@@ -2,6 +2,8 @@ import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import { HttpError } from "../util/http-error.js";
 import { User } from "../model/user-model.js";
+import 'dotenv/config'
+
 
 export const signup = async(req,res,next)=>{
     try{
@@ -44,7 +46,7 @@ export const signup = async(req,res,next)=>{
         }
         let token;
         try{
-        token = jwt.sign({userId:user.id},"secretkey")
+        token = jwt.sign({userId:user.id},process.env.SECRET_KEY)
         }
         catch(err)
         {
@@ -80,7 +82,7 @@ export const login = async(req,res,next)=>{
     }
     let token;
     try{
-        token = jwt.sign({userId:user.id},'secretkey')
+        token = jwt.sign({userId:user.id},process.env.SECRET_KEY)
         }
         catch(err)
         {

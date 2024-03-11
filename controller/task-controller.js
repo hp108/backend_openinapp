@@ -15,7 +15,6 @@ export const createTask = async (req, res, next) => {
         newDueDate=new Date(dueDate);
 
     }catch(err){
-        console.log(err.message)
         return next(new HttpError("invalid date",403));
     }
 

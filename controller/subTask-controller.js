@@ -9,6 +9,9 @@ export const createSubTask = async (req, res,next) => {
   let subTask;
   try{
   const task = await Task.findById(taskId);
+  if (!task) {
+    return next(new HttpError("Task not found", 404));
+  }
   subTask = new SubTask({ task_id:taskId, status: 0 });
   await subTask.save();
 
