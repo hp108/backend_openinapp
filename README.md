@@ -6,19 +6,19 @@ This project implements a RESTful API for task management, including features su
 
 ## Setup
 
-1. Clone the repository:
+1. **Clone the repository:**
 
     ```bash
     git clone <repository_url>
     ```
 
-2. Install dependencies:
+2. **Install dependencies:**
 
     ```bash
     npm install
     ```
 
-3. Set up environment variables:
+3. **Set up environment variables:**
 
     Create a `.env` file in the root directory and add the following variables:
 
@@ -30,7 +30,7 @@ This project implements a RESTful API for task management, including features su
     TWILIO_TOKEN=<your_twilio_auth_token>
     ```
 
-4. Run the application:
+4. **Run the application:**
 
     ```bash
     npm start
@@ -117,11 +117,11 @@ This project implements a RESTful API for task management, including features su
 
 1. **Change Priority of Task**
    - Logic: Adjust priority based on due_date
-   - Cron Expression: `0 0 * * *` (Every day at midnight)
+   - Cron Expression: `* */6 * * *` (executes for every 6 hours)
 
 2. **Voice Calling using Twilio**
    - Logic: Call users if tasks pass due_date based on priority
-   - Cron Expression: `0 12 * * *` (Every day at 12:00 PM)
+   - Cron Expression: `*/5 * * * *` (executes for every 5 minutes)
 
 ## Technologies Used
 
@@ -133,4 +133,4 @@ This project implements a RESTful API for task management, including features su
 
 ## Contributors
 
-- Katakam Hari Prasad(https://github.com/hp108)
+- Katakam Hari Prasad ([GitHub](https://github.com/hp108))
