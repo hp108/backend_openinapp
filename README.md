@@ -133,10 +133,4 @@ This project implements a RESTful API for task management, including features su
 
 ## Contributors
 
-- [Your Name](https://github.com/your_username)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+- Katakam Hari Prasad(https://github.com/hp108)
